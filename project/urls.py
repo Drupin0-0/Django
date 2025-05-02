@@ -14,9 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.http import HttpResponse
-from django.urls import path
+from django.contrib import admin # type: ignore
+from django.http import HttpResponse # type: ignore
+from django.urls import path # type: ignore
+from home import views as home_views
+from blog import views as blog_views
+from django.urls import include, path
 
 # HTTP Request <-> HTTP Response
 # MVT (MVC)
@@ -33,7 +36,7 @@ def blog(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', blog),
-    path('', home),
+    path('blog/', include(blog.urls)),
+    path('', include('home.urls')),
     
 ]
