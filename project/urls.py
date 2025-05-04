@@ -18,7 +18,7 @@ from django.contrib import admin # type: ignore
 from django.http import HttpResponse # type: ignore
 from django.urls import path # type: ignore
 from home import views as home_views
-from blog import views as blog_views
+from django.urls import include, path
 from django.urls import include, path
 
 # HTTP Request <-> HTTP Response
@@ -36,7 +36,8 @@ def blog(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include(blog.urls)),
+    path('blog/', include('blog.urls')),
+
     path('', include('home.urls')),
     
 ]
