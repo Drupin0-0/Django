@@ -1,11 +1,12 @@
 from django.shortcuts import render
-
+from . import data
 def index(request):  # Renomeado de 'blog' para 'index'
     print('index')
     
     context =   {
             'text': 'estamos na blog',
-            'title': 'esse e o site do '
+            'title': 'esse e o site do ',
+            'posts': data.posts
         }
     return render(
         request,
