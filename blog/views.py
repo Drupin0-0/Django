@@ -1,24 +1,53 @@
+from blog.data import posts
 from django.shortcuts import render
-from . import data
-def index(request):  # Renomeado de 'blog' para 'index'
-    print('index')
-    
-    context =   {
-            'text': 'estamos na blog',
-            'title': 'esse e o site do ',
-            'posts': data.posts
-        }
+from typing import Any
+from django.http import HttpRequest
+
+
+def blog(request):
+    print('blog')
+
+    context = {
+        # 'text': 'Olá blog',
+        'posts': posts
+    }
+
     return render(
         request,
         'blog/index.html',
         context
     )
 
+
+def post(request: HttpRequest , post_id: int):
+    found_post: dict [str, Any] | None = None
+    
+    for post in posts:
+        if post ['id'] == post_id:
+            found_post = post
+        break
+
+    context = {
+        # 'text': 'Olá blog',
+        'post': found_post,
+        'title': found_post['title'] + ' - ',
+    }
+
+    return render(
+        request,
+        'blog/post.html',
+        context
+    )
+
+
 def exemplo(request):
     print('exemplo')
-    context =   {
-            'text': 'estamos na home'
-        }
+
+    context = {
+        'text': 'Olá exemplo',
+        'title': 'Essa é uma página de exemplo - ',
+    }
+
     return render(
         request,
         'blog/exemplo.html',
